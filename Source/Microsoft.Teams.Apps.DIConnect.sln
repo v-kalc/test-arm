@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Send.Func", "Microsoft.Teams.Apps.DIConnect.Send.Func\Microsoft.Teams.Apps.DIConnect.Send.Func.csproj", "{4C32909F-3A9A-470F-AEEB-1F50870FAE96}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Tests", "Microsoft.Teams.Apps.DIConnect.Tests\Microsoft.Teams.Apps.DIConnect.Tests.csproj", "{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
