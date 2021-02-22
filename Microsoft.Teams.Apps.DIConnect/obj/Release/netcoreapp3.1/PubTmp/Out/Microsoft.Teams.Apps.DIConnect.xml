@@ -1,0 +1,2380 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Teams.Apps.DIConnect</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions">
+            <summary>
+            Options used for setting up the authentication.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AzureAdInstance">
+            <summary>
+            Gets or sets the Azure active directory instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AzureAdTenantId">
+            <summary>
+            Gets or sets the Azure active directory tenant id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AzureAdClientId">
+            <summary>
+            Gets or sets the Azure active directory client id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AzureAdApplicationIdUri">
+            <summary>
+            Gets or sets the Azure active directory application id URI.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AzureAdValidIssuers">
+            <summary>
+            Gets or sets the Azure active directory valid issuers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.DisableCreatorUpnCheck">
+            <summary>
+            Gets or sets a value indicating whether the "must be a UPN in the authorized list
+            in order to use the app and create notifications" check should be disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions.AuthorizedCreatorUpns">
+            <summary>
+            Gets or sets the valid upns of users who are allowed to access the app and use it to
+            create notifications.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationServiceCollectionExtensions">
+            <summary>
+            Extension class for registering auth services in DI container.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationServiceCollectionExtensions.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions)">
+            <summary>
+            Extension method to register the authentication services.
+            </summary>
+            <param name="services">IServiceCollection instance.</param>
+            <param name="configuration">The configuration instance.</param>
+            <param name="authenticationOptions">The authentication options.</param>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.GraphTokenProvider">
+            <summary>
+            Add Access Token to Graph API.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.GraphTokenProvider.#ctor(Microsoft.Identity.Web.ITokenAcquisition)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Authentication.GraphTokenProvider"/> class.
+            </summary>
+            <param name="tokenAcquisition">MSAL.NET token acquisition service.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.GraphTokenProvider.AuthenticateRequestAsync(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Intercepts HttpRequest and add Bearer token.
+            </summary>
+            <param name="request">Represents a HttpRequestMessage.</param>
+            <returns>asynchronous operation.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeHandler">
+            <summary>
+            This class is an authorization handler, which handles the authorization requirement.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeHandler.#ctor(Microsoft.Identity.Web.ITokenAcquisition)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeHandler"/> class.
+            </summary>
+            <param name="tokenAcquisition">MSAL.NET token acquisition service.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeRequirement)">
+            <summary>
+            This method handles the authorization requirement.
+            </summary>
+            <param name="context">AuthorizationHandlerContext instance.</param>
+            <param name="requirement">IAuthorizationRequirement instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeHandler.HasScopesAsync(System.String[])">
+            <summary>
+            Check whether the access token has input scopes.
+            This is where we should check if user has valid graph access.
+            </summary>
+            <param name="scopes">Microsoft Graph scopes.</param>
+            <returns>Indicate if access token has scope.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeRequirement">
+            <summary>
+            This class is an authorization policy requirement.
+            It specifies that an access token must contain group.read.all scope.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeRequirement.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeRequirement"/> class.
+            </summary>
+            <param name="scopes">Microsoft Graph Scopes.</param>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Authentication.MSGraphScopeRequirement.Scopes">
+            <summary>
+            Gets Microsoft Graph Scopes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnHandler">
+            <summary>
+            This class is an authorization handler, which handles the authorization requirement.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnHandler.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnHandler"/> class.
+            </summary>
+            <param name="authenticationOptions">The authentication options.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnRequirement)">
+            <summary>
+            This method handles the authorization requirement.
+            </summary>
+            <param name="context">AuthorizationHandlerContext instance.</param>
+            <param name="requirement">IAuthorizationRequirement instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnHandler.IsValidUpn(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext)">
+            <summary>
+            Check whether a UPN is valid or not.
+            This is where we should check against the valid list of UPNs.
+            </summary>
+            <param name="context">Authorization handler context instance.</param>
+            <returns>Indicate if a UPN is valid or not.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.MustBeValidUpnRequirement">
+            <summary>
+            This class is an authorization policy requirement.
+            It specifies that an id token must contain UPN claim.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Authentication.PolicyNames">
+            <summary>
+            This class lists the names of the custom authorization policies in the project.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Authentication.PolicyNames.MustBeValidUpnPolicy">
+            <summary>
+            The name of the authorization policy, MustHaveUpnClaimPolicy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Authentication.PolicyNames.MSGraphGroupDataPolicy">
+            <summary>
+            The name of the authorization policy, MSGraphGroupDataPolicy.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier">
+            <summary>
+            Send approval notification to admin team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.RetryDelay">
+            <summary>
+            Represents retry delay.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.RetryCount">
+            <summary>
+            Represents retry count.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.TeamsBotFrameworkChannelId">
+            <summary>
+            Default value for channel activity to send notifications.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.botOptions">
+            <summary>
+            A set of key/value application configuration properties for bot settings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.logger">
+            <summary>
+            Instance to send logs to the logger service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.adapter">
+            <summary>
+            Bot adapter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.localizer">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.employeeResourceGroupRepository">
+            <summary>
+            Instance of employee resource group repository.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.retryPolicy">
+            <summary>
+            Retry policy with jitter, retry twice with a jitter delay of up to 1 sec. Retry for HTTP 429(transient error)/502 bad gateway.
+            </summary>
+            <remarks>
+            Reference: https://github.com/Polly-Contrib/Polly.Contrib.WaitAndRetry#new-jitter-recommendation.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.cardHelper">
+            <summary>
+            Instance of class that handles user pair-up matches card helper methods.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupRepository,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions},Microsoft.Bot.Builder.Integration.AspNet.Core.BotFrameworkHttpAdapter,Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier},Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier"/> class.
+            </summary>
+            <param name="employeeResourceGroupRepository">Employee resource group data repository instance.</param>
+            <param name="botOptions"> A set of key/value application bot configuration properties.</param>
+            <param name="adapter">Bot adapter.</param>
+            <param name="logger">Logger implementation to send logs to the logger service.</param>
+            <param name="localizer">Localization service.</param>
+            <param name="cardHelper">Instance of class that handles Approval card helper methods.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.SendGroupApprovalNotificationAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupEntity,System.String)">
+            <summary>
+            Sends approval notification card to team.
+            </summary>
+            <param name="groupEntity">Employee resource group entity.</param>
+            <param name="serviceBasePath">Service URL.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.UpdateGroupApprovalNotificationAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IMessageActivity})">
+            <summary>
+            Update group details with appropriate approval status.
+            </summary>
+            <param name="turnContext">Provides context for a turn of a bot.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier.SendProactiveNotificationCardAsync(Microsoft.Bot.Schema.Attachment,System.String)">
+            <summary>
+            Send the given attachment to the specified admin Team.
+            </summary>
+            <param name="cardToSend">The attachment card to send.</param>
+            <param name="serviceBasePath">Service URL for a particular team.</param>
+            <returns>A task that sends notification card in channel.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions">
+            <summary>
+            Options used for creating the bot filter middleware.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions.DisableTenantFilter">
+            <summary>
+            Gets or sets a value indicating whether the tenant
+            filtering for the bot should be disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions.AllowedTenants">
+            <summary>
+            Gets or sets the allowed tenants list.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.ConfigurationCredentialProvider">
+            <summary>
+            This class implements ICredentialProvider, which is used by the bot framework to retrieve credential info.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.ConfigurationCredentialProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.ConfigurationCredentialProvider"/> class.
+            </summary>
+            <param name="botOptions">The bot options.</param>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot">
+            <summary>
+            DI Connect Bot.
+            Captures user data, team data, upload files.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.ErrorMessageTaskModuleHeight">
+            <summary>
+            Sets the height of the error message task module.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.ErrorMessageTaskModuleWidth">
+            <summary>
+            Sets the width of the error message task module.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.GroupCreatedCommand">
+            <summary>
+            Represent for group created command.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.ChannelConversationType">
+            <summary>
+            Represents the conversation type as channel.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.PersonalConversationType">
+            <summary>
+            Represents the conversation type as personal.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.TeamRenamedEventType">
+            <summary>
+            Represents the Team renamed event type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.teamsDataCapture">
+            <summary>
+            Represents the Team data capture.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.teamsFileUpload">
+            <summary>
+            Represents the Team file upload.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.feedbackDataRepository">
+            <summary>
+            Represents the feedback data repository.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.knowledgeBaseResponse">
+            <summary>
+            Response generating from QnA maker knowledge base service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.notificationCardHelper">
+            <summary>
+            Helper for working with bot notification card.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.botOptions">
+            <summary>
+            A set of key/value application bot configuration properties.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.localizer">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.teamNotification">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.employeeResourceGroupRepository">
+            <summary>
+            Instance of employee resource group repository.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.teamUserPairUpMappingRepository">
+            <summary>
+            Repository for team pair matching storage operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.cardHelper">
+            <summary>
+            Instance of class that handles adaptive card helper methods.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.userTeamMappingsHelper">
+            <summary>
+            Helper class for getting user mappings for a team.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.#ctor(Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture,Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupRepository,Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload,Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse,Microsoft.Teams.Apps.DIConnect.Common.Repositories.FeedbackData.FeedbackDataRepository,Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions},Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Teams.Apps.DIConnect.Bot.AdminTeamNotifier,Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserPairupMapping.TeamUserPairUpMappingRepository,Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper,Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot"/> class.
+            </summary>
+            <param name="teamsDataCapture">Teams data capture service.</param>
+            <param name="employeeResourceGroupRepository">Instance of employee resource group repository.</param>
+            <param name="teamsFileUpload">Teams file upload service.</param>
+            <param name="teamNotification">Send team notification service.</param>
+            <param name="knowledgeBaseResponse">Knowledge base response instance.</param>
+            <param name="feedbackDataRepository">Feedback data repository instance.</param>
+            <param name="notificationCardHelper">Notification card helper instance.</param>
+            <param name="botOptions">A set of key/value application bot configuration properties.</param>
+            <param name="localizer">Localization service.</param>
+            <param name="cardHelper">Instance of class that handles adaptive card helper methods.</param>
+            <param name="teamUserPairUpMappingRepository">Instance of team pair-up repository to access user pair-up matches.</param>
+            <param name="userTeamMappingsHelper">Instance of helper for user mappings for a Team.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.OnConversationUpdateActivityAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IConversationUpdateActivity},System.Threading.CancellationToken)">
+            <summary>
+            Invoked when a conversation update activity is received from the channel.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.OnMessageActivityAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IMessageActivity},System.Threading.CancellationToken)">
+            <summary>
+            Handle when a message is addressed to the bot.
+            </summary>
+            <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
+            <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+            <returns>A Task resolving to either a login card or the adaptive card of the Reddit post.</returns>
+            <remarks>
+            For more information on bot messaging in Teams, see the documentation
+            https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/conversation-basics?tabs=dotnet#receive-a-message .
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.OnTeamsFileConsentAcceptAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IInvokeActivity},Microsoft.Bot.Schema.Teams.FileConsentCardResponse,System.Threading.CancellationToken)">
+            <summary>
+            Invoke when a file upload accept consent activity is received from the channel.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="fileConsentCardResponse">The accepted response object of File Card.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.OnTeamsFileConsentDeclineAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IInvokeActivity},Microsoft.Bot.Schema.Teams.FileConsentCardResponse,System.Threading.CancellationToken)">
+            <summary>
+            Invoke when a file upload decline consent activity is received from the channel.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="fileConsentCardResponse">The declined response object of File Card.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.OnTeamsTaskModuleSubmitAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IInvokeActivity},Microsoft.Bot.Schema.Teams.TaskModuleRequest,System.Threading.CancellationToken)">
+            <summary>
+            When OnTurn method receives a submit invoke activity on bot turn, it calls this method.
+            </summary>
+            <param name="turnContext">Provides context for a turn of a bot.</param>
+            <param name="taskModuleRequest">Task module invoke request value payload.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+            <returns>A task that represents a task module response.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.GetConversationUserDetailAsync(Microsoft.Bot.Builder.ITurnContext,System.Threading.CancellationToken)">
+            <summary>
+            Get Teams channel account detailing user Azure Active Directory details.
+            </summary>
+            <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
+            <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.IsTeamInformationUpdated(Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Return true or false if Teams information updated.
+            </summary>
+            <param name="activity">Conversation update activity.</param>
+            <returns>Function return true if Teams information updated successfully otherwise returns false.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBot.GetErrorPageTaskModule">
+            <summary>
+            Get error page task module.
+            </summary>
+            <returns>Return task module for error.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotAdapter">
+            <summary>
+            The DI Connect Bot Adapter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotAdapter.#ctor(Microsoft.Bot.Connector.Authentication.ICredentialProvider,Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotFilterMiddleware)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotAdapter"/> class.
+            </summary>
+            <param name="credentialProvider">Credential provider service instance.</param>
+            <param name="dIConnectBotFilterMiddleware">Teams message filter middleware instance.</param>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotFilterMiddleware">
+            <summary>
+            The bot's general filter middleware.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotFilterMiddleware.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotFilterMiddleware"/> class.
+            </summary>
+            <param name="botFilterMiddlewareOptions">The bot filter middleware options.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotFilterMiddleware.OnTurnAsync(Microsoft.Bot.Builder.ITurnContext,Microsoft.Bot.Builder.NextDelegate,System.Threading.CancellationToken)">
+            <summary>
+            Processes an incoming activity.
+            If the activity's channel id is not "msteams", or its conversation's tenant is not an allowed tenant,
+            then the middleware short circuits the pipeline, and skips the middlewares and handlers
+            that are listed after this filter in the pipeline.
+            </summary>
+            <param name="turnContext">Context object containing information for a single turn of a conversation.</param>
+            <param name="next">The delegate to call to continue the bot middleware pipeline.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse">
+            <summary>
+            Class to generate response of knowledge base.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.qnaService">
+            <summary>
+            Represents question and answer maker service provider.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.botOptions">
+            <summary>
+            A set of key/value application bot configuration properties.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.localizer">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.cardHelper">
+            <summary>
+            Instance of class that adaptive card helper methods.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.logger">
+            <summary>
+            Instance to send logs to the logger service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Services.IQnAService,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions},Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper,Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse"/> class.
+            </summary>
+            <param name="qnaService">Question and answer maker service provider.</param>
+            <param name="botOptions"> A set of key/value application bot configuration properties.</param>
+            <param name="cardHelper">Instance of class that handles adaptive card helper methods.</param>
+            <param name="localizer">Localization service.</param>
+            <param name="logger">Logger implementation to send logs to the logger service.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.KnowledgeBaseResponse.SendReplyToQuestionAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IMessageActivity},System.String)">
+            <summary>
+            Get the reply to a question asked by end user.
+            </summary>
+            <param name="turnContext">Context object containing information cached for a single turn of conversation with user.</param>
+            <param name="question">Question from user.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper">
+            <summary>
+            Class that helps to send notification cards.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.RetryDelay">
+            <summary>
+            Represents retry delay.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.RetryCount">
+            <summary>
+            Represents retry count.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.TeamsBotFrameworkChannelId">
+            <summary>
+            Default value for channel activity to send notifications.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.botOptions">
+            <summary>
+            A set of key/value application configuration properties for bot settings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.logger">
+            <summary>
+            Instance to send logs to the logger service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.adapter">
+            <summary>
+            The BotFramework adapter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.retryPolicy">
+            <summary>
+            Retry policy with jitter, retry twice with a jitter delay of up to 1 sec. Retry for HTTP 429(transient error)/502 bad gateway.
+            </summary>
+            <remarks>
+            Reference: https://github.com/Polly-Contrib/Polly.Contrib.WaitAndRetry#new-jitter-recommendation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions},Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper},Microsoft.Bot.Builder.Integration.AspNet.Core.BotFrameworkHttpAdapter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper"/> class.
+            </summary>
+            <param name="botOptions">A set of key/value application configuration properties.</param>
+            <param name="logger">Logger implementation to send logs to the logger service.</param>
+            <param name="adapter">Bot adapter.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.NotificationCardHelper.SendProactiveNotificationCardAsync(Microsoft.Bot.Schema.Attachment,System.String,System.String)">
+            <summary>
+            Send the given attachment to the specified conversation id.
+            </summary>
+            <param name="cardToSend">The attachment card to send.</param>
+            <param name="conversationId">Conversation id where the notification have to be sent.</param>
+            <param name="serviceUrl">Service URL.</param>
+            <returns>A task that sends notification card.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture">
+            <summary>
+            Service to capture teams data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData.UserDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Services.IAppSettingsService,Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture"/> class.
+            </summary>
+            <param name="teamDataRepository">Team data repository instance.</param>
+            <param name="userDataRepository">User data repository instance.</param>
+            <param name="appSettingsService">App Settings service.</param>
+            <param name="cardHelper">Instance of class that handles adaptive card helper methods.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture.OnBotAddedAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IConversationUpdateActivity},Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Add channel or personal data in Table Storage.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="activity">Teams activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture.OnBotRemovedAsync(Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Remove channel or personal data in table storage.
+            </summary>
+            <param name="activity">Teams activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsDataCapture.OnTeamInformationUpdatedAsync(Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Update team information in the table storage.
+            </summary>
+            <param name="activity">Teams activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload">
+            <summary>
+            Service to upload file to user's one drive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData.ExportDataRepository,Azure.Storage.Blobs.BlobContainerClient,Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload"/> class.
+            </summary>
+            <param name="clientFactory">http client factory.</param>
+            <param name="exportDataRepository">Export Data Repository.</param>
+            <param name="blobContainerClient">azure blob container client.</param>
+            <param name="localizer">Localization service.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.FileUploadCompletedAsync(Microsoft.Bot.Builder.ITurnContext,Microsoft.Bot.Schema.Teams.FileConsentCardResponse,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sends file upload complete card.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="fileConsentCardResponse">The accepted response object of File Card.</param>
+            <param name="fileName">The file name.</param>
+            <param name="notificationId">The notification id.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.FileUploadFailedAsync(Microsoft.Bot.Builder.ITurnContext,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send the file upload failed message.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="notificationId">The notification id.</param>
+            <param name="error">The error message.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.UploadToOneDrive(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Upload the file to user's one drive.
+            </summary>
+            <param name="fileName">The file name.</param>
+            <param name="uploadUrl">The One drive upload URL.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.CleanUp(Microsoft.Bot.Builder.ITurnContext,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Clean up the data such as file, consent card, record.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="fileName">The file name.</param>
+            <param name="notificationId">The notification id.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Bot.TeamsFileUpload.ExtractInformation(System.Object)">
+            <summary>
+            Extract the file name and notification id.
+            </summary>
+            <param name="fileCardContext">The context of file card response.</param>
+            <returns>file name and notification id.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.CardCacheConstants">
+            <summary>
+            Constants to list keys used by cache layers in application.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.WelcomeJsonTemplate">
+            <summary>
+            Cache key for welcome card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.ConfigureMatchesJsonTemplate">
+            <summary>
+            Cache key for configure user matches card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.ResumeMatchesJsonTemplate">
+            <summary>
+            Cache key for resume user matches card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.PairUpTeamsMappingJsonTemplate">
+            <summary>
+            Cache key for user pair-up teams mapping card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.ShareFeedbackJsonTemplate">
+            <summary>
+            Cache key for share feedback card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.QnAResponseJsonTemplate">
+            <summary>
+            Cache key for QnA response card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.AdminApprovalCardJsonTemplate">
+            <summary>
+            Cache key for admin team approve/reject card template.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.CardCacheConstants.AdminNotificationCardJsonTemplate">
+            <summary>
+            Cache key for admin team notification card template.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.AppSettingsController">
+            <summary>
+            Controller to get app settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.AppSettingsController.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.AppSettingsController"/> class.
+            </summary>
+            <param name="userAppOptions">User app options.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.AppSettingsController.GetUserAppId">
+            <summary>
+            Get app id.
+            </summary>
+            <returns>Required sent notification.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.AuthenticationMetadataController">
+            <summary>
+            Controller for the authentication sign in data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.AuthenticationMetadataController.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.AuthenticationMetadataController"/> class.
+            </summary>
+            <param name="authenticationOptions">The authentication options.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.AuthenticationMetadataController.GetConsentUrl(System.String,System.String)">
+            <summary>
+            Get authentication consent URL.
+            </summary>
+            <param name="windowLocationOriginDomain">Window location origin domain.</param>
+            <param name="loginHint">UPN value.</param>
+            <returns>Consent URL.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.BotController">
+            <summary>
+            Message controller for the bot.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.BotController.#ctor(Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotAdapter,Microsoft.Bot.Builder.IBot)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.BotController"/> class.
+            Dependency Injection will provide the Adapter and IBot implementation at runtime.
+            </summary>
+            <param name="adapter">DI Connect Bot Adapter instance.</param>
+            <param name="bot">DI Connect Bot instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.BotController.PostAsync">
+            <summary>
+            POST: api/Messages
+            Delegate the processing of the HTTP POST to the adapter.
+            The adapter will invoke the bot.
+            </summary>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.DataQueueMessageOptions">
+            <summary>
+            Options for data queue messages.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Controllers.DataQueueMessageOptions.ForceCompleteMessageDelayInSeconds">
+            <summary>
+            Gets or sets the value for the delay to be applied to the data queue message
+            used to force mark a notification as complete if it is not already
+            complete to ensure it is not left in a "sending" state.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController">
+            <summary>
+            Controller for the draft notification data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService,Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IGroupsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController"/> class.
+            </summary>
+            <param name="notificationDataRepository">Notification data repository instance.</param>
+            <param name="teamDataRepository">Team data repository instance.</param>
+            <param name="draftNotificationPreviewService">Draft notification preview service.</param>
+            <param name="localizer">Localization service.</param>
+            <param name="groupsService">group service.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.CreateDraftNotificationAsync(Microsoft.Teams.Apps.DIConnect.Models.DraftNotification)">
+            <summary>
+            Create a new draft notification.
+            </summary>
+            <param name="notification">A new Draft Notification to be created.</param>
+            <returns>The created notification's id.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.DuplicateDraftNotificationAsync(System.String)">
+            <summary>
+            Duplicate an existing draft notification.
+            </summary>
+            <param name="id">The id of a Draft Notification to be duplicated.</param>
+            <returns>If the passed in id is invalid, it returns 404 not found error. Otherwise, it returns 200 OK.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.UpdateDraftNotificationAsync(Microsoft.Teams.Apps.DIConnect.Models.DraftNotification)">
+            <summary>
+            Update an existing draft notification.
+            </summary>
+            <param name="notification">An existing Draft Notification to be updated.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.DeleteDraftNotificationAsync(System.String)">
+            <summary>
+            Delete an existing draft notification.
+            </summary>
+            <param name="id">The id of the draft notification to be deleted.</param>
+            <returns>If the passed in Id is invalid, it returns 404 not found error. Otherwise, it returns 200 OK.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.GetAllDraftNotificationsAsync">
+            <summary>
+            Get draft notifications.
+            </summary>
+            <returns>A list of <see cref="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummary"/> instances.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.GetDraftNotificationByIdAsync(System.String)">
+            <summary>
+            Get a draft notification by Id.
+            </summary>
+            <param name="id">Draft notification Id.</param>
+            <returns>It returns the draft notification with the passed in id.
+            The returning value is wrapped in a ActionResult object.
+            If the passed in id is invalid, it returns 404 not found error.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.GetDraftNotificationSummaryForConsentByIdAsync(System.String)">
+            <summary>
+            Get draft notification summary (for consent page) by notification Id.
+            </summary>
+            <param name="notificationId">Draft notification Id.</param>
+            <returns>It returns the draft notification summary (for consent page) with the passed in id.
+            If the passed in id is invalid, it returns 404 not found error.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.DraftNotificationsController.PreviewDraftNotificationAsync(Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationPreviewRequest)">
+            <summary>
+            Preview draft notification.
+            </summary>
+            <param name="draftNotificationPreviewRequest">Draft notification preview request.</param>
+            <returns>
+            It returns 400 bad request error if the incoming parameter, draftNotificationPreviewRequest, is invalid.
+            It returns 404 not found error if the DraftNotificationId or TeamsTeamId (contained in draftNotificationPreviewRequest) is not found in the table storage.
+            It returns 500 internal error if this method throws an unhandled exception.
+            It returns 429 too many requests error if the preview request is throttled by the bot service.
+            It returns 200 OK if the method is executed successfully.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController">
+            <summary>
+            Controller to handle employee resource group operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.employeeResourceGroupRepository">
+            <summary>
+            Repository for employee resource group activity.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.tableRowKeyGenerator">
+            <summary>
+            Helper class to generate new row key.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.groupMembersService">
+            <summary>
+            Instance of group member service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.options">
+            <summary>
+            Bot filter middleware options.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.logger">
+            <summary>
+            Sends logs to the telemetry service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.localizer">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.TableRowKeyGenerator,Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IGroupMembersService,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Bot.BotFilterMiddlewareOptions},Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController"/> class.
+            </summary>
+            <param name="employeeResourceGroupRepository">Employee resource group data repository instance.</param>
+            <param name="tableRowKeyGenerator">Table row key generator service.</param>
+            <param name="groupMembersService">Group member service.</param>
+            <param name="options">Bot filter middleware options.</param>
+            <param name="localizer">The current culture's string localizer.</param>
+            <param name="logger">Logs errors and information.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.GetEmployeeResourceGroupDataAsync">
+            <summary>
+            Get call to retrieve searchable employee resource group data from Azure Search Service.
+            </summary>
+            <returns>List of searchable employee resource group entity.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.CreateEmployeeResourceGroupAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupEntity)">
+            <summary>
+            Create a new employee resource group.
+            </summary>
+            <param name="employeeResourceGroupEntity">A new employee resource group entity to be created.</param>
+            <returns>Create employee resource group.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.GetEmployeeResourceGroup(System.String)">
+            <summary>
+            Get employee resource group data entity for a given group id.
+            </summary>
+            <param name="id">Unique Id of resource group entity.</param>
+            <returns>Resource group entity.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.GetAllEmployeeResourceGroups">
+            <summary>
+            Get all employee resource group data entities.
+            </summary>
+            <returns>List of employee resource group data entities.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.GetEmployeeResourceGroupByTeamId(System.String)">
+            <summary>
+            Get employee resource group data entity for a given team Id.
+            </summary>
+            <param name="teamId">Team id (19:xxx).</param>
+            <returns>Resource group entity of type 'Teams'.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.UpdateEmployeeResourceGroupAsync(System.String,Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.ResourceGroupRequest)">
+            <summary>
+            Update employee resource group entity.
+            </summary>
+            <param name="id">Id of resource group entity.</param>
+            <param name="employeeResourceGroupEntity">A updated employee resource group entity to be updated.</param>
+            <returns>Returns updated employee resource group entity.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.EmployeeResourceGroupController.DeleteEmployeeResourceGroupAsync(System.String)">
+            <summary>
+            Delete employee resource group entity.
+            </summary>
+            <param name="id">Id of resource group entity.</param>
+            <returns>Returns http status code 200 for success call.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.ExportController">
+            <summary>
+            Controller for exporting notification.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.ExportController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.SentNotificationData.SentNotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData.ExportDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData.UserDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.ExportQueue.ExportQueue)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.ExportController"/> class.
+            </summary>
+            <param name="sentNotificationDataRepository">SentNotification data repository instance.</param>
+            <param name="exportDataRepository">Export data repository instance.</param>
+            <param name="userDataRepository">User data repository instance.</param>
+            <param name="exportQueue">The service bus queue for the export queue.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.ExportController.ExportNotificationAsync(System.String)">
+            <summary>
+            Initiate a export of notification.
+            </summary>
+            <param name="id">notification id.</param>
+            <returns>The result of an action method.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController">
+            <summary>
+            Controller for getting groups.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IGroupsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController"/> class.
+            </summary>
+            <param name="notificationDataRepository">Notification data repository instance.</param>
+            <param name="groupsService">Microsoft Graph service instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController.VerifyAccess">
+            <summary>
+            check if user has access.
+            </summary>
+            <returns>indicating user access to group.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController.SearchAsync(System.String)">
+            <summary>
+            Action method to get groups.
+            </summary>
+            <param name="query">user input.</param>
+            <returns>list of group data.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.GroupDataController.GetGroupsAsync(System.String)">
+            <summary>
+            Get Group Data by Id.
+            </summary>
+            <param name="id">Draft notification Id.</param>
+            <returns>List of Group Names.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.HealthController">
+            <summary>
+            Controller for health endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.HealthController.Index">
+            <summary>
+            Report health status of the application.
+            </summary>
+            <returns>Action.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController">
+            <summary>
+            Controller to handle knowledge base data operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController.appConfigRepository">
+            <summary>
+            Repository for app config data activity.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController.logger">
+            <summary>
+            Sends logs to the telemetry service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.AppConfigRepository,Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController"/> class.
+            </summary>
+            <param name="appConfigRepository">Repository for app config data activity.</param>
+            <param name="logger">Logs errors and information.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController.GetKnowledgeBaseId">
+            <summary>
+            Get knowledge base id from the storage.
+            </summary>
+            <returns>Knowledge base id.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.KnowledgeBaseSettingsController.UpdateKnowledgeBaseId(Microsoft.Teams.Apps.DIConnect.Models.KnowledgeBaseData)">
+            <summary>
+            Update knowledge base id into storage.
+            </summary>
+            <param name="knowledgeBaseData">QnA maker knowledge base data.</param>
+            <returns>Update knowledge base id.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController">
+            <summary>
+            Controller for the sent notification data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.SentNotificationData.SentNotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.PrepareToSendQueue.PrepareToSendQueue,Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.DataQueue.DataQueue,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Controllers.DataQueueMessageOptions},Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IGroupsService,Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData.ExportDataRepository,Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IAppCatalogService,Microsoft.Teams.Apps.DIConnect.Common.Services.IAppSettingsService,Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Models.UserAppOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController"/> class.
+            </summary>
+            <param name="notificationDataRepository">Notification data repository service that deals with the table storage in azure.</param>
+            <param name="sentNotificationDataRepository">Sent notification data repository.</param>
+            <param name="teamDataRepository">Team data repository instance.</param>
+            <param name="prepareToSendQueue">The service bus queue for preparing to send notifications.</param>
+            <param name="dataQueue">The service bus queue for the data queue.</param>
+            <param name="dataQueueMessageOptions">The options for the data queue messages.</param>
+            <param name="groupsService">The groups service.</param>
+            <param name="exportDataRepository">The Export data repository instance.</param>
+            <param name="appCatalogService">App catalog service.</param>
+            <param name="appSettingsService">App settings service.</param>
+            <param name="userAppOptions">User app options.</param>
+            <param name="loggerFactory">The logger factory.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController.CreateSentNotificationAsync(Microsoft.Teams.Apps.DIConnect.Models.DraftNotification)">
+            <summary>
+            Send a notification, which turns a draft to be a sent notification.
+            </summary>
+            <param name="draftNotification">An instance of <see cref="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification"/> class.</param>
+            <returns>The result of an action method.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController.GetSentNotificationsAsync">
+            <summary>
+            Get most recently sent notification summaries.
+            </summary>
+            <returns>A list of <see cref="T:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary"/> instances.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController.GetSentNotificationByIdAsync(System.String)">
+            <summary>
+            Get a sent notification by Id.
+            </summary>
+            <param name="id">Id of the requested sent notification.</param>
+            <returns>Required sent notification.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.SentNotificationsController.UpdateUserAppIdAsync">
+            <summary>
+            Updates user app id if its not already synced.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController">
+            <summary>
+            Controller for the teams data.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.teamDataRepository">
+            <summary>
+            Instance of team data repository.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.groupDataService">
+            <summary>
+            Instance of Group data service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.logger">
+            <summary>
+            Instance to send logs to the logger service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph.IGroupsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController"/> class.
+            </summary>
+            <param name="teamDataRepository">Team data repository instance.</param>
+            <param name="loggerFactory">The logger factory.</param>
+            <param name="groupDataService">Group data service instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.GetAllTeamDataAsync">
+            <summary>
+            Get data for all teams.
+            </summary>
+            <returns>A list of team data.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Controllers.TeamDataController.GetTeamDataByGroupIdAsync(System.String)">
+            <summary>
+            Get Team details by group Id.
+            </summary>
+            <param name="groupId">Group Id of the team.</param>
+            <returns>Team data.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService">
+            <summary>
+            Draft notification preview service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.MsTeamsChannelId">
+            <summary>
+            Represent Teams ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.ChannelConversationType">
+            <summary>
+            Represent Channel conversation type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.ThrottledErrorResponse">
+            <summary>
+            Represent error response.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.botAppId">
+            <summary>
+            Represent Bot application Id.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.adaptiveCardCreator">
+            <summary>
+            Represent adaptive card creator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.diConnectBotAdapter">
+            <summary>
+            Represent variable for DIConnectBotAdapter Interface.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions},Microsoft.Teams.Apps.DIConnect.Common.Services.AdaptiveCard.AdaptiveCardCreator,Microsoft.Teams.Apps.DIConnect.Bot.DIConnectBotAdapter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService"/> class.
+            </summary>
+            <param name="botOptions">The bot options.</param>
+            <param name="adaptiveCardCreator">Adaptive card creator service.</param>
+            <param name="diConnectBotAdapter">Bot framework HTTP adapter instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.SendPreview(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataEntity,Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataEntity,System.String)">
+            <summary>
+            Send a preview of a draft notification.
+            </summary>
+            <param name="draftNotificationEntity">Draft notification entity.</param>
+            <param name="teamDataEntity">The team data entity.</param>
+            <param name="teamsChannelId">The Teams channel id.</param>
+            <returns>It returns HttpStatusCode.OK, if this method triggers the bot service to send the adaptive card successfully.
+            It returns HttpStatusCode.TooManyRequests, if the bot service throttled the request to send the adaptive card.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.PrepareConversationReferenceAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataEntity,System.String)">
+            <summary>
+            Prepare conversation.
+            </summary>
+            <param name="teamDataEntity">Teams's data.</param>
+            <param name="channelId">Teams's channel ID.</param>
+            <returns>conversation Reference of chat/conversation.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.SendAdaptiveCardAsync(Microsoft.Bot.Builder.ITurnContext,Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataEntity)">
+            <summary>
+            Send an adaptive card when bot trigger.
+            </summary>
+            <param name="turnContext">The context object for this turn.</param>
+            <param name="draftNotificationEntity">Data for notifications that are either (depending on partition key):drafts,sent.</param>
+            <returns>Return adaptive card as notification.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview.DraftNotificationPreviewService.CreateReply(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataEntity)">
+            <summary>
+            Creates a notification reply object.
+            </summary>
+            <param name="draftNotificationEntity">Data for notifications that are either (depending on partition key):drafts,sent.</param>
+            <returns>Return adaptive card as notification.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper">
+            <summary>
+            Class that handles adaptive card helper methods.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.MaximumPromptQuestionCount">
+            <summary>
+            Represents maximum prompt question count.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.TabRedirectionUrl">
+            <summary>
+            Redirection url of tab.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.TabEntityId">
+            <summary>
+            Entity id of the tab.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.WelcomeCardFileName">
+            <summary>
+            Represents the welcome card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.QnAResponseCardFileName">
+            <summary>
+            Represents the QnA response card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.ShareFeedbackCardFileName">
+            <summary>
+            Represents the share feedback card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.ApprovalCardFileName">
+            <summary>
+            Represents the approval card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.ApprovalUpdatedCardFileName">
+            <summary>
+            Represents the updated approval card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.ConfigurePairUpMatchesFileName">
+            <summary>
+            Represents the configure pair-up matches card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.ResumePairUpMatchesFileName">
+            <summary>
+            Represents the resume pair-up matches card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.PairUpTeamsMappingFileName">
+            <summary>
+            Represents the user pair-up teams mapping card file name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.logger">
+            <summary>
+            Instance to send logs to the Application Insights service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.memoryCache">
+            <summary>
+            Cache for storing adaptive card json schema.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.hostingEnvironment">
+            <summary>
+            Information about the web hosting environment an application is running in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.localizer">
+            <summary>
+            The current culture's string localizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.botOptions">
+            <summary>
+            A set of key/value application bot configuration properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.#ctor(Microsoft.Extensions.Logging.ILogger{Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper},Microsoft.Extensions.Caching.Memory.IMemoryCache,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},Microsoft.Extensions.Options.IOptions{Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot.BotOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper"/> class.
+            </summary>
+            <param name="logger">Instance to send logs to the Application Insights service.</param>
+            <param name="memoryCache">Cache for storing adaptive card json schema.</param>
+            <param name="hostingEnvironment">Information about the web hosting environment an application is running in.</param>
+            <param name="localizer">The current culture's string localizer.</param>
+            <param name="botOptions">A set of key/value application bot configuration properties.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetWelcomeNotificationCard">
+            <summary>
+            This method will construct the welcome notification card for personal scope.
+            </summary>
+            <returns>Welcome notification card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetQnAResponseNotificationCard(System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models.PromptDTO},System.String)">
+            <summary>
+            This method will construct the QnA response notification card for user.
+            </summary>
+            <param name="question">Question from the user.</param>
+            <param name="answer">Knowledge base answer from QnA maker service.</param>
+            <param name="prompts">Prompts associated with the current question.</param>
+            <param name="appBaseUri">The base URI where the App is hosted.</param>
+            <returns>QnA response notification card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetShareFeedbackNotificationCard(Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior,Microsoft.Bot.Schema.Teams.TeamsChannelAccount)">
+            <summary>
+            This method will construct the share feedback notification card for admin team.
+            </summary>
+            <param name="feedbackData">User activity payload.</param>
+            <param name="userDetails">User details.</param>
+            <returns>Share feedback notification card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetApprovalCard(Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupEntity,System.String)">
+            <summary>
+            Get approval notification card attachment.
+            </summary>
+            <param name="groupEntity">Employee resource group entity.</param>
+            <param name="approvalStatusText">Represents the approval status text.</param>
+            <returns>Approval notification card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetConfigureMatchesNotificationCard">
+            <summary>
+            This method will construct the configure user pair-up notification card for user.
+            </summary>
+            <returns>Configure user pair-up notification card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetResumePairupNotificationCard">
+            <summary>
+            This method will construct resume pair-up notification card for user.
+            </summary>
+            <returns>Resume pair-up notification attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetUserPairUpMatchesCard(System.Collections.Generic.List{Microsoft.Teams.Apps.DIConnect.Models.CardSetting.TeamPairUpData})">
+            <summary>
+            This method will construct user pair-up matches configuration card, user will have option to pause/resume pair-up matches for Teams.
+            </summary>
+            <param name="teamUserPairUpMappingEntities">User and Teams pair-up matches entity.</param>
+            <returns>User pair-up card attachment.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper.GetCardTemplate(System.String,System.String)">
+            <summary>
+            Get card template from memory.
+            </summary>
+            <param name="cardCacheKey">Card cache key.</param>
+            <param name="cardJsonTemplateFileName">File name of JSON adaptive card template with file extension as .json to be provided.</param>
+            <returns>Returns JSON adaptive card template string.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper">
+            <summary>
+            Helper class for user mappings for a Team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper.employeeResourceGroupRepository">
+            <summary>
+            Repository for employee resource group.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper.teamUserPairupMappingRepository">
+            <summary>
+            Repository for team pair matching.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper.cardHelper">
+            <summary>
+            Instance of class that handles user pair-up matches card helper methods.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper.#ctor(Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserPairupMapping.TeamUserPairUpMappingRepository,Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup.EmployeeResourceGroupRepository,Microsoft.Teams.Apps.DIConnect.Helpers.CardHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper"/> class.
+            </summary>
+            <param name="teamUserPairupMappingRepository">Instance of team pair-up repository to access user pair-up matches.</param>
+            <param name="employeeResourceGroupRepository">Instance of employee resource group repository to access resource group details.</param>
+            <param name="cardHelper">Instance of class that handles user pair-up matches card helper methods.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Helpers.UserTeamMappingsHelper.SendUserTeamMappingsCardAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IMessageActivity},System.Threading.CancellationToken)">
+            <summary>
+            To send user team mappings card.
+            </summary>
+            <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
+            <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+            <returns>A task representing asynchronous operation.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Localization.LocalizationServiceCollectionExtensions">
+            <summary>
+            Extension class for registering localization services in DI container.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Localization.LocalizationServiceCollectionExtensions.AddLocalizationSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds localization settings to specified IServiceCollection.
+            </summary>
+            <param name="services">Collection of services.</param>
+            <param name="configuration">Application configuration properties.</param>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Localization.RequestCultureProvider">
+            <summary>
+            The DIConnectCultureProvider implements the interface <see cref="T:Microsoft.AspNetCore.Localization.IRequestCultureProvider"/>.
+            The provider gets locale info from User-Agent header for requests come from the BOT framework.
+            It gets the info from Accept-Language header if it's a not a BOT request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Localization.RequestCultureProvider.DetermineProviderCultureResult(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Get the culture of the current request.
+            </summary>
+            <param name="httpContext">The current request.</param>
+            <returns>A Task resolving to the culture info if found, null otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.AppConfigurations">
+            <summary>
+            Application configuration data model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.AppConfigurations.AppId">
+            <summary>
+            Gets or sets the Microsoft app ID for the bot.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification">
+            <summary>
+            Base notification model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.Id">
+            <summary>
+            Gets or sets Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.Title">
+            <summary>
+            Gets or sets Title value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.ImageLink">
+            <summary>
+            Gets or sets the Image Link value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.Summary">
+            <summary>
+            Gets or sets the Summary value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.Author">
+            <summary>
+            Gets or sets the Author value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.ButtonTitle">
+            <summary>
+            Gets or sets the Button Title value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.ButtonLink">
+            <summary>
+            Gets or sets the Button Link value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.BaseNotification.CreatedDateTime">
+            <summary>
+            Gets or sets the Created DateTime value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData">
+            <summary>
+            Approval card data class.
+            This entity holds the content required for approval card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.RequestSubmittedText">
+            <summary>
+            Gets or sets approval card request submitted text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.ApprovalStatusText">
+            <summary>
+            Gets or sets approval card approve/reject text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.GroupDescriptionText">
+            <summary>
+            Gets or sets approval card group description text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.NameText">
+            <summary>
+            Gets or sets approval card name label text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.GroupNameText">
+            <summary>
+            Gets or sets approval card group name text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.TagsText">
+            <summary>
+            Gets or sets approval card tags text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.ApproveTagsName">
+            <summary>
+            Gets or sets approval card tags name value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.LocationText">
+            <summary>
+            Gets or sets approval card Location text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.LocationName">
+            <summary>
+            Gets or sets approval card Location name value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.SearchEnableText">
+            <summary>
+            Gets or sets approval card Search enable text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.SearchEnableStatusText">
+            <summary>
+            Gets or sets approval card Search enable status text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.ApproveButtonText">
+            <summary>
+            Gets or sets approval card approve text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.RejectButtonText">
+            <summary>
+            Gets or sets approval card reject text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ApprovalCardData.GroupId">
+            <summary>
+            Gets or sets employee resource group id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ColumnData">
+            <summary>
+            Adaptive column data class.
+            This entity holds the content required for QnA response card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ColumnData.ImageUrl">
+            <summary>
+            Gets or sets image url value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ColumnData.PromptQuestion">
+            <summary>
+            Gets or sets prompt question text value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ConfigurePairupMatchesCardData">
+            <summary>
+            Configure pair-up matches card data class.
+            This entity holds the content required for configure pair-up matches card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ConfigurePairupMatchesCardData.ConfigureMatchesCardTitle">
+            <summary>
+            Gets or sets configure matches title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ConfigurePairupMatchesCardData.ConfigureMatchesButtonText">
+            <summary>
+            Gets or sets configure matches button text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ConfigurePairupMatchesCardData.ConfigureMatchesCommand">
+            <summary>
+            Gets or sets configure matches command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData">
+            <summary>
+            QnA response card data class.
+            This entity holds the content required for QnA response card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ResponseHeaderText">
+            <summary>
+            Gets or sets response header text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.QuestionText">
+            <summary>
+            Gets or sets question text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.AnswerText">
+            <summary>
+            Gets or sets answer text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ShareFeedbackButtonText">
+            <summary>
+            Gets or sets share feedback button text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.FeedbackHeaderText">
+            <summary>
+            Gets or sets feedback header text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.FeedbackTitleText">
+            <summary>
+            Gets or sets feedback title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.IsPromptQuestionsPresent">
+            <summary>
+            Gets or sets a value indicating whether is prompt questions present or not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.PromptHeaderText">
+            <summary>
+            Gets or sets prompt header text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.HelpfulTitleText">
+            <summary>
+            Gets or sets helpful title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.NeedsImprovementTitleText">
+            <summary>
+            Gets or sets needs improvement title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.NotHelpfulTitleText">
+            <summary>
+            Gets or sets not helpful title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ChoiceSetPlaceholder">
+            <summary>
+            Gets or sets choice set place holder text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.DescriptionText">
+            <summary>
+            Gets or sets description text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.DescriptionPlaceHolderText">
+            <summary>
+            Gets or sets description placeholder text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ShareButtonText">
+            <summary>
+            Gets or sets share button text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ShareCommand">
+            <summary>
+            Gets or sets share command value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.QnAResponseCardData.ColumnSets">
+            <summary>
+            Gets or sets list of column set elements.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ResumePairupMatchesCardData">
+            <summary>
+            Resume pair-up matches card data class.
+            This entity holds the content required for resume pair-up matches notification card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ResumePairupMatchesCardData.UpdateCardTitle">
+            <summary>
+            Gets or sets update user matches title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ResumePairupMatchesCardData.UpdateCardButtonText">
+            <summary>
+            Gets or sets update user matches button text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ResumePairupMatchesCardData.ConfigureMatchesCommand">
+            <summary>
+            Gets or sets configure matches command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData">
+            <summary>
+            Share feedback card data class.
+            This entity holds the content required for share feedback card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.FeedbackText">
+            <summary>
+            Gets or sets feedback text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.FeedbackSubHeaderText">
+            <summary>
+            Gets or sets feedback sub header text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.FeedbackType">
+            <summary>
+            Gets or sets feedback type value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.DescriptionText">
+            <summary>
+            Gets or sets description text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.FeedbackDescription">
+            <summary>
+            Gets or sets feedback description value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.CreatedOnText">
+            <summary>
+            Gets or sets created on text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.FeedbackCreatedDate">
+            <summary>
+            Gets or sets feedback created date value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.ChatInitiateURL">
+            <summary>
+            Gets or sets chat initiate url text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.ShareFeedbackCardData.ChatWithUserButtonText">
+            <summary>
+            Gets or sets chat with user button text value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.TeamPairUpData">
+            <summary>
+            Team pair-up data class.
+            This entity holds the content required for user team pair-up matches notification card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.TeamPairUpData.TeamDisplayName">
+            <summary>
+            Gets or sets team display name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.TeamPairUpData.TeamId">
+            <summary>
+            Gets or sets team id value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData">
+            <summary>
+            User pair up matches notification card data class.
+            This entity holds the content required for user pair-up matches notification card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData.ConfigureUserMatchesCardTitleText">
+            <summary>
+            Gets or sets configure user matches card title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData.TeamPairupEntites">
+            <summary>
+            Gets or sets a collection of team pair-up entities.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData.CommaSeperatedTeamIds">
+            <summary>
+            Gets or sets comma seperated team id's.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData.ConfigureUserMatchesButtonText">
+            <summary>
+            Gets or sets configure user matches card title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.UserPairUpMatchesNotificationCardData.UpdateMatchesCommand">
+            <summary>
+            Gets or sets update matches command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData">
+            <summary>
+            Welcome card data class.
+            This entity holds the content required for welcome card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.WelcomeTitleText">
+            <summary>
+            Gets or sets welcome title text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.WelcomeHeaderText">
+            <summary>
+            Gets or sets welcome header text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.DiscoverGroupsBulletText">
+            <summary>
+            Gets or sets discover groups bullet text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.MeetPeopleBulletText">
+            <summary>
+            Gets or sets meet people bullet text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.GetAnswersBulletText">
+            <summary>
+            Gets or sets answer bullet text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.AboutGroupsBulletText">
+            <summary>
+            Gets or sets about groups bullet text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.DiscoverGroupsButtonText">
+            <summary>
+            Gets or sets discover groups button text value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.CardSetting.WelcomeCardData.DiscoverGroupsUrl">
+            <summary>
+            Gets or sets discover groups url value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification">
+            <summary>
+            Draft notification model class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.Teams">
+            <summary>
+            Gets or sets Teams audience id collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.Rosters">
+            <summary>
+            Gets or sets Rosters audience id collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.Groups">
+            <summary>
+            Gets or sets Groups audience id collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.AllUsers">
+            <summary>
+            Gets or sets a value indicating whether a notification should be sent to all the users.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Models.DraftNotification.Validate(Microsoft.Extensions.Localization.IStringLocalizer{Microsoft.Teams.Apps.DIConnect.Common.Resources.Strings},System.String@)">
+            <summary>
+            Validates a draft notification.
+            Teams and Rosters property should not contain more than 20 items.
+            </summary>
+            <param name="localizer">The string localizer service.</param>
+            <param name="errorMessage">It returns the error message found by the method to the callers.</param>
+            <returns>A flag indicates if a draft notification is valid or not.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationPreviewRequest">
+            <summary>
+            Draft notification preview request model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationPreviewRequest.DraftNotificationId">
+            <summary>
+            Gets or sets draft notification id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationPreviewRequest.TeamsTeamId">
+            <summary>
+            Gets or sets Teams team id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationPreviewRequest.TeamsChannelId">
+            <summary>
+            Gets or sets Teams channel id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummary">
+            <summary>
+            Draft Notification Summary model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummary.Id">
+            <summary>
+            Gets or sets Notification Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummary.Title">
+            <summary>
+            Gets or sets Title value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent">
+            <summary>
+            Draft notification summary (for consent page) model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent.NotificationId">
+            <summary>
+            Gets or sets Notification Id value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent.TeamNames">
+            <summary>
+            Gets or sets Team Names value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent.RosterNames">
+            <summary>
+            Gets or sets Roster Names value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent.GroupNames">
+            <summary>
+            Gets or sets Group Names value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.DraftNotificationSummaryForConsent.AllUsers">
+            <summary>
+            Gets or sets a value indicating whether the All Users option is selected.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.GroupData">
+            <summary>
+            Group data model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.GroupData.Id">
+            <summary>
+            Gets or sets group Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.GroupData.Name">
+            <summary>
+            Gets or sets name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.GroupData.Mail">
+            <summary>
+            Gets or sets mail.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.KnowledgeBaseData">
+            <summary>
+            Knowledge base data model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.KnowledgeBaseData.Id">
+            <summary>
+            Gets or sets knowledge base Id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.SentNotification">
+            <summary>
+            Sent notification model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.SendingStartedDate">
+            <summary>
+            Gets or sets the sending started date time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.SentDate">
+            <summary>
+            Gets or sets the Sent DateTime value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.Succeeded">
+            <summary>
+            Gets or sets the number of recipients who have received the notification successfully.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.Failed">
+            <summary>
+            Gets or sets the number of recipients who failed in receiving the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.Unknown">
+            <summary>
+            Gets or sets the number of recipients whose delivery status is unknown.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.TeamNames">
+            <summary>
+            Gets or sets Teams audience name collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.RosterNames">
+            <summary>
+            Gets or sets Rosters audience name collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.GroupNames">
+            <summary>
+            Gets or sets Groups audience name collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.AllUsers">
+            <summary>
+            Gets or sets a value indicating whether a notification was sent to all users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.ErrorMessage">
+            <summary>
+            Gets or sets error message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.WarningMessage">
+            <summary>
+            Gets or sets warning message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.CanDownload">
+            <summary>
+            Gets or sets a value indicating whether user can download notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotification.SendingCompleted">
+            <summary>
+            Gets or sets a value indicating whether sending is in progress.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary">
+            <summary>
+            Sent notification summary model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Id">
+            <summary>
+            Gets or sets Notification Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Title">
+            <summary>
+            Gets or sets Title value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.CreatedDateTime">
+            <summary>
+            Gets or sets Created DateTime value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.SentDate">
+            <summary>
+            Gets or sets Sent DateTime value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Succeeded">
+            <summary>
+            Gets or sets the number of recipients who have received the notification successfully.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Failed">
+            <summary>
+            Gets or sets the number of recipients who failed in receiving the notification.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Unknown">
+            <summary>
+            Gets or sets the number of recipients whose delivery status is unknown.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.TotalMessageCount">
+            <summary>
+            Gets or sets the total number of messages to be sent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.SendingStartedDate">
+            <summary>
+            Gets or sets the sending started date time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SentNotificationSummary.Status">
+            <summary>
+            Gets or sets notification status. <see cref="T:Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationStatus"/> for possible values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior">
+            <summary>
+            Defines teams-specific behavior for an card submit action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior.Command">
+            <summary>
+            Gets or sets command text to show submit or cancel event on Task Module.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior.FeedbackDescription">
+            <summary>
+            Gets or sets feedback description from user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior.FeedbackType">
+            <summary>
+            Gets or sets feedback type from user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior.GroupId">
+            <summary>
+            Gets or sets employee resource group id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.SubmitActionDataForTeamsBehavior.TeamId">
+            <summary>
+            Gets or sets team id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.TeamData">
+            <summary>
+            Teams data model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.TeamData.Id">
+            <summary>
+            Gets or sets team Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.TeamData.Name">
+            <summary>
+            Gets or sets name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.TeamData.Description">
+            <summary>
+            Gets or sets description.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Models.UserAppOptions">
+            <summary>
+            Teams User options for app configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.UserAppOptions.ProactivelyInstallUserApp">
+            <summary>
+            Gets or sets a value indicating whether user app should be pro actively installed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Models.UserAppOptions.UserAppExternalId">
+            <summary>
+            Gets or sets User app's external Id (id in the manifest).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Pages.ErrorModel">
+            <summary>
+            Error model class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Pages.ErrorModel.RequestId">
+            <summary>
+            Gets or sets the request id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Gets a value indicating whether the request id is null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Pages.ErrorModel.OnGet">
+            <summary>
+            Sets the request id.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Program">
+            <summary>
+            Program class of the DI Connect application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Program.Main(System.String[])">
+            <summary>
+            Main function of the DI Connect application.
+            It builds a web host, then launches the DI Connect into it.
+            </summary>
+            <param name="args">Arguments passed in to the function.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Create the web host builder.
+            </summary>
+            <param name="args">Arguments passed into the main function.</param>
+            <returns>A web host builder instance.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.NotificationRepositoryExtensions">
+            <summary>
+            Extensions for the repository of the notification data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.NotificationRepositoryExtensions.CreateDraftNotificationAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData.NotificationDataRepository,Microsoft.Teams.Apps.DIConnect.Models.DraftNotification,System.String)">
+            <summary>
+            Create a new draft notification.
+            </summary>
+            <param name="notificationRepository">The notification repository.</param>
+            <param name="notification">Draft Notification model class instance passed in from Web API.</param>
+            <param name="userName">Name of the user who is running the application.</param>
+            <returns>The newly created notification's id.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.TeamDataRepositoryExtensions">
+            <summary>
+            Extensions for the repository of the team data stored in the table storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.TeamDataRepositoryExtensions.SaveTeamDataAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Add channel data in Table Storage.
+            </summary>
+            <param name="teamDataRepository">The team data repository.</param>
+            <param name="activity">Bot conversation update activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.TeamDataRepositoryExtensions.RemoveTeamDataAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData.TeamDataRepository,Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Remove channel data in table storage.
+            </summary>
+            <param name="teamDataRepository">The team data repository.</param>
+            <param name="activity">Bot conversation update activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.UserDataRepositoryExtensions">
+            <summary>
+            Extensions for the repository of the user data stored in the table storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.UserDataRepositoryExtensions.SaveUserDataAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData.UserDataRepository,Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Add personal data in Table Storage.
+            </summary>
+            <param name="userDataRepository">The user data repository.</param>
+            <param name="activity">Bot conversation update activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Repositories.Extensions.UserDataRepositoryExtensions.RemoveUserDataAsync(Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData.UserDataRepository,Microsoft.Bot.Schema.IConversationUpdateActivity)">
+            <summary>
+            Remove personal data in table storage.
+            </summary>
+            <param name="userDataRepository">The user data repository.</param>
+            <param name="activity">Bot conversation update activity instance.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+        </member>
+        <member name="T:Microsoft.Teams.Apps.DIConnect.Startup">
+            <summary>
+            Register services in DI container, and setup middle-wares in the pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Teams.Apps.DIConnect.Startup.Configuration">
+            <summary>
+            Gets the IConfiguration instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Teams.Apps.DIConnect.Startup"/> class.
+            </summary>
+            <param name="configuration">IConfiguration instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">IServiceCollection instance.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">IApplicationBuilder instance, which is a class that provides the mechanisms to configure an application's request pipeline.</param>
+            <param name="env">IHostingEnvironment instance, which provides information about the web hosting environment an application is running in.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.FillAuthenticationOptionsProperties(Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationOptions,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Fills the AuthenticationOptions's properties with the correct values from the configuration.
+            </summary>
+            <param name="authenticationOptions">The AuthenticationOptions whose properties will be filled.</param>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.HandleGlobalException(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Handle exceptions happened in the HTTP process pipe-line.
+            </summary>
+            <param name="applicationBuilder">IApplicationBuilder instance, which is a class that provides the mechanisms to configure an application's request pipeline.</param>
+        </member>
+        <member name="M:Microsoft.Teams.Apps.DIConnect.Startup.GetKeyVaultByManagedServiceIdentity">
+            <summary>
+            Get KeyVault secrets and set app-settings values.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,260 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect\\Microsoft.Teams.Apps.DIConnect.csproj": {}
+  },
+  "projects": {
+    "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\Microsoft.Teams.Apps.DIConnect.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\Microsoft.Teams.Apps.DIConnect.Common.csproj",
+        "projectName": "Microsoft.Teams.Apps.DIConnect.Common",
+        "projectPath": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\Microsoft.Teams.Apps.DIConnect.Common.csproj",
+        "packagesPath": "C:\\Users\\Puneadmin1\\.nuget\\packages\\",
+        "outputPath": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Puneadmin1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "AdaptiveCards": {
+              "target": "Package",
+              "version": "[1.0.6, )"
+            },
+            "Azure.Search.Documents": {
+              "target": "Package",
+              "version": "[11.1.1, )"
+            },
+            "Microsoft.ApplicationInsights": {
+              "target": "Package",
+              "version": "[2.16.0, )"
+            },
+            "Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Microsoft.Azure.Cosmos.Table": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "Microsoft.Azure.ServiceBus": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "Microsoft.Bot.Builder.Integration.AspNet.Core": {
+              "target": "Package",
+              "version": "[4.9.3, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "Microsoft.Graph.Beta": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[0.22.0-preview, )"
+            },
+            "Microsoft.Identity.Client": {
+              "target": "Package",
+              "version": "[4.15.0, )"
+            },
+            "Microsoft.Spatial": {
+              "target": "Package",
+              "version": "[7.5.0, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.1, )"
+            },
+            "Polly.Contrib.WaitAndRetry": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "System.Linq.Async": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect\\Microsoft.Teams.Apps.DIConnect.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect\\Microsoft.Teams.Apps.DIConnect.csproj",
+        "projectName": "Microsoft.Teams.Apps.DIConnect",
+        "projectPath": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect\\Microsoft.Teams.Apps.DIConnect.csproj",
+        "packagesPath": "C:\\Users\\Puneadmin1\\.nuget\\packages\\",
+        "outputPath": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Puneadmin1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\Microsoft.Teams.Apps.DIConnect.Common.csproj": {
+                "projectPath": "D:\\AppTemplate\\FY21\\DI_initial_sertup\\msteams-app-diconnect\\Source\\Microsoft.Teams.Apps.DIConnect.Common\\Microsoft.Teams.Apps.DIConnect.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "AdaptiveCards": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "AdaptiveCards.Templating": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            },
+            "Azure.Security.KeyVault.Secrets": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.4.4, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.AzureAD.UI": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Microsoft.AspNetCore.SpaServices.Extensions": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Bot.Builder.Integration.AspNet.Core": {
+              "target": "Package",
+              "version": "[4.9.3, )"
+            },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "Microsoft.Graph.Beta": {
+              "target": "Package",
+              "version": "[0.22.0-preview, )"
+            },
+            "Microsoft.Graph.Core": {
+              "target": "Package",
+              "version": "[1.21.0, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[0.1.3-preview, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
